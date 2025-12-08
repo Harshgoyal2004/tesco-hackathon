@@ -1,0 +1,113 @@
+/* -------------------------------
+   1. Load Tailwind layers FIRST
+--------------------------------*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------
+   2. Define root variables BEFORE
+   any @apply rules execute
+--------------------------------*/
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --radius: 0.75rem;
+
+    /* Glassmorphism System */
+    --glass-bg: rgba(20, 20, 25, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-highlight: rgba(255, 255, 255, 0.05);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+
+    /* Adaptive Theme Variables */
+    --theme-accent: 250 100% 65%;
+    --theme-glow: rgba(139, 92, 246, 0.3);
+  }
+}
+
+/* -------------------------------
+   3. SAFE: Now apply global @apply
+--------------------------------*/
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(var(--theme-accent), 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 0% 50%, rgba(var(--theme-accent), 0.05) 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+}
+
+/* -------------------------------
+   4. Utilities (always last)
+--------------------------------*/
+@layer utilities {
+  .glass-panel {
+    @apply bg-[var(--glass-bg)] backdrop-blur-xl border border-[var(--glass-border)] shadow-[var(--glass-shadow)];
+  }
+
+  .glass-panel-hover {
+    @apply transition-all duration-300 hover:bg-[var(--glass-highlight)] hover:border-white/10 hover:shadow-lg;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px var(--theme-glow);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 15px -3px var(--theme-glow);
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+  }
+}
